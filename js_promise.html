@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>switch</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="switch">
+    <meta name="keywords" content="switch">
+	<meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-control" content="no-cache" />
+    <meta http-equiv="Cache" content="no-cache" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css">
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.nicescroll.js"></script>
+    <script type="text/javascript" src="js/tool.js"></script>
+</head>
+<body>
+    <div class="contentAuto">
+        <div class="midqu">
+            <h5>概述</h5>
+            <div class="wzcontent">
+                
+            </div>
+            
+            <pre id="codeshow">
+            
+            </pre>
+            
+        </div>
+    </div>
+    <script type="text/javascript" id="scriptBox">
+    //示例1
+    const p = new Promise((resolve, reject) => {
+        $.ajax({
+            url:"./js.json",
+            type: 'GET',
+            success: function(data) {
+                resolve(data);
+            },
+            error:function(err) {
+                reject(err);
+            }
+        });
+    });
+    p.then((response) => {
+        console.log(response);
+    });
+
+    //示例2 链式调用
+    const p2 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(1)
+        }, 5000);
+    });
+    p2.then((res) => {
+        console.log(res);
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(res + 1)
+            }, 5000);
+        })
+    }).then((res) => {
+       console.log("res:",res + 1);
+    })
+
+
+
+    
+    
+    
+    </script>
+    <script type="text/javascript">
+        document.getElementById("codeshow").innerHTML = $("#scriptBox").html();
+    </script>
+    <div class="foot"><script>cpright()</script></div>
+</body>
+</html>

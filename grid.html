@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>switch</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="switch">
+    <meta name="keywords" content="switch">
+	<meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-control" content="no-cache" />
+    <meta http-equiv="Cache" content="no-cache" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css">
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.nicescroll.js"></script>
+    <script type="text/javascript" src="js/tool.js"></script>
+    <style type="text/css" id="scriptBox">
+    .container{
+        display: grid;
+        grid-template-columns: 100px 200px 300px; /*此属性定义列数和每列的宽度*/
+        grid-template-rows: 30px 50px 80px;     /*此属性定义行数和每行的高度*/
+        grid-gap: 5px;/*此属性定义列和行之间的空间*/
+    }
+    .container .item{background-color: #ccc;}
+
+    .container2{
+        display: grid;
+        grid-template-columns: 1fr 2fr 3fr; /*此属性定义列数和每列的宽度*/
+        grid-template-rows: 30px 50px 80px;     /*此属性定义行数和每行的高度*/
+        grid-gap: 5px;/*此属性定义列和行之间的空间*/
+        box-sizing: border-box;
+    }
+    .container2 .item{background-color: #dbdbdb;}
+
+    .container3{
+        display: grid;
+        grid-template-columns: 100px 200px 100px 200px;
+        grid-template-rows: 50px 30px;
+        grid-gap: 5px;
+        box-sizing: border-box;
+    }
+    .container3 .item{background-color: #ccc;}
+    .container4{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 30px);
+        grid-gap: 5px;/*此属性定义列和行之间的空间*/
+        grid-column: 1;
+    }
+    .container4 .item{background-color: #ccc;}
+
+    .container5{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 5px;
+    }
+    .container5 div{background-color: #ccc;}
+    .container5 .item1{grid-area: 1 / 1 /span 2/ span 2;height:200px}
+    .container5 .item2{height:100px;}
+    .container5 .item3{grid-area: 2 / 3 /span 2/ span 1;}
+    .container5 .item4{height:50px;}
+    .container5 .item5{height:50px;}
+    </style>
+</head>
+<body>
+    <div class="contentAuto">
+        <div class="midqu">
+            <h5>1、container 3行3列，每列宽度，每行高度</h5>
+            <div class="container">
+                <div class="item">1</div>
+                <div class="item">2</div>
+                <div class="item">3</div>
+
+                <div class="item">4</div>
+                <div class="item">5</div>
+                <div class="item">6</div>
+
+                <div class="item">7</div>
+                <div class="item">8</div>
+                <div class="item">9</div>
+            </div>
+            <h5>2、container2 3行3列，每列宽度，每行高度百分比</h5>
+            <div class="container2">
+                <div class="item">1</div>
+                <div class="item">2</div>
+                <div class="item">3</div>
+
+                <div class="item">4</div>
+                <div class="item">5</div>
+                <div class="item">6</div>
+
+                <div class="item">7</div>
+                <div class="item">8</div>
+                <div class="item">9</div>
+            </div>
+            
+            <h5>3、container3 2行4列，每列宽度，每行高度</h5>
+            <div class="container3">
+                <div class="item">1</div>
+                <div class="item">2</div>
+                <div class="item">3</div>
+                <div class="item">4</div>
+
+                <div class="item">5</div>
+                <div class="item">6</div>
+                <div class="item">7</div>
+                <div class="item">8</div>
+            </div>
+            <h5>4、container4 3行3列，每列宽度，每行高度</h5>
+            <div class="container4">
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+            <h5>5、container5 3行3列</h5>
+            <div class="container5">
+                <div class="item1">1</div>
+                <div class="item2">2</div>
+                <div class="item3">3</div>
+                <div class="item4">4</div>
+                <div class="item5">5</div>
+            </div>
+            <h5>示例CSS</h5>
+            <pre id="codeshow">
+
+            </pre>
+            <div style="color: #ff0000;">注：运用百分比设置列宽，且设置了gird-gap属性的话，会导致溢出。解决方案两个，一个是运用calc，另外一个是运用fr做单位，类似flex布局中的flex:1占比关系</div>
+            
+            
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+        document.getElementById("codeshow").innerHTML = $("#scriptBox").html();
+    </script>
+    <div class="foot"><script>cpright()</script></div>
+</body>
+</html>

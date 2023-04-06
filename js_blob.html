@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>switch</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="switch">
+    <meta name="keywords" content="switch">
+	<meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-control" content="no-cache" />
+    <meta http-equiv="Cache" content="no-cache" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css">
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.nicescroll.js"></script>
+    <script type="text/javascript" src="js/tool.js"></script>
+</head>
+<body>
+    <div class="contentAuto">
+        <div class="midqu">
+            <h5>概述</h5>
+            <div class="wzcontent">
+                Blob: 前端的一个专门用于支持文件操作的二进制对象<br/>
+                ArrayBuffer：前端的一个通用的二进制缓冲区，类似数组，但在API和特性上却有诸多不同<br/>
+                Buffer：Node.js提供的一个二进制缓冲区，常用来处理I/O操作<br/>
+                <a id="d">点此下载文件</a>
+            </div>
+            <h5>Blob实现本地图片预览</h5>
+            <div class="wzcontent">
+                <input type="file" id="file" onchange="viewPic()" /><br/>
+                <div id="picqu"></div>
+            </div>
+            <h5>示例3 Blob实现文件分片上传</h5>
+            <div class="wzcontent">
+                <input type="file" id="curFile" onchange="selectFileUpload()" /><br/>
+            </div>
+            <pre id="codeshow">
+            
+            </pre>
+            <div class="wzcontent">
+                ---------------------------------------------------------------<br>
+                参考：https://zhuanlan.zhihu.com/p/97768916 <br/>
+                https://zhuanlan.zhihu.com/p/298441930 <br/>
+                https://zhuanlan.zhihu.com/p/22297104<br>
+                分片上传和断点续传参考：https://blog.csdn.net/IICOOM/article/details/126007296
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" id="scriptBox">
+        //示例1、Blob实现下载文件
+        var blob = new Blob(["This ia a blob file test!"]);
+        var url = window.URL.createObjectURL(blob);
+        var d = document.getElementById("d");
+        d.download = "test01.txt";
+        d.href = url;
+
+        /*******************************/
+
+        //示例2、实现本地图片预览
+        function viewPic() {
+            var file = document.getElementById("file").files[0];
+            console.log(file);
+            var url = window.URL.createObjectURL(file);
+            var img = document.createElement("img");
+            img.src = url;
+            document.getElementById("picqu").appendChild(img);
+            img.onload = function() {
+                window.URL.revokeObjectURL(url);
+            }
+        }
+
+        /*******************************/
+        function upload(blob) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://localhost:3000/upload/upload', true);
+            xhr.setRequestHeader('Content-Type', 'text/plain')
+            xhr.send(blob);
+        }
+
+        //示例3、Blob实现文件分片上传
+        function selectFileUpload() {
+            let blob = document.getElementById("curFile").files[0];
+            const SIZE = blob.size;//文件大小 bytes
+            const CHUNK_SIZE  = 20;// 每片大小 20 bytes
+            let start = 0;
+            let end = CHUNK_SIZE;
+            while(start < SIZE) {
+                upload(blob.slice(start, end));
+                //console.log(blob.slice(start, end));
+                start = end;
+                end = start + CHUNK_SIZE;
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        document.getElementById("codeshow").innerHTML = $("#scriptBox").html();
+    </script>
+    <div class="foot"><script>cpright()</script></div>
+</body>
+</html>

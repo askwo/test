@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="switch">
+    <meta name="keywords" content="switch">
+	<meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-control" content="no-cache, must-revalidate" />
+    <meta http-equiv="Cache" content="no-cache" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.nicescroll.js"></script>
+	<script type="text/javascript" src="js/layer/layer.js"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="logoqu">
+            <div class="logo"><i class="iconfont icon-kemyond"></i></div>
+            <div class="su"></div>
+            <div class="sysname">
+                <h3>WEB管理系统</h3>
+                <div id="proModel" style="height:20px;">ATS-3100D</div>
+            </div>
+        </div>
+        
+        <div class="mbmenu" onclick="IndexPage.openmbmenu()"></div>
+    </div>
+    <div class="leftbox">
+        <div class="menuact"><i class="iconfont icon-fold_menu" onclick="IndexPage.menuAct(this)"></i></div>
+        <ul>
+            <!-- <li>
+                <a href="u.cgi?next_file=system.htm" target="mainiframe" class="havemenu active" onclick="IndexPage.openmenu(this)">        
+                    <label><i class="iconfont icon-sbgl"></i></label>        
+                    <span>材质</span>    
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="havemenu" onclick="IndexPage.openmenu(this)">
+                    <label><i class="iconfont icon-xtgl"></i></label>
+                    <span>光源</span>
+                    <div class="down_box"><i class="iconfont icon-unfold"></i></div>
+                </a>
+                <nav>
+                    <div class="sec_menu" onclick="IndexPage.selmenu(this)"><a href="u.cgi?next_file=run_conf.htm" target="mainiframe"><span>环境光</span></a></div>
+                    <div class="sec_menu" onclick="IndexPage.selmenu(this)"><a href="u.cgi?next_file=run_conf.htm" target="mainiframe"><span>点光源</span></a></div>
+                    <div class="sec_menu" onclick="IndexPage.selmenu(this)"><a href="u.cgi?next_file=reboot.htm" target="mainiframe"><span>聚光灯光源</span></a></div>
+                    <div class="sec_menu" onclick="IndexPage.selmenu(this)"><a href="u.cgi?next_file=system_upgrade.htm" target="mainiframe"><span>平行光</span></a></div>
+                </nav>
+            </li> -->
+        </ul>
+    </div>
+    <div class="nav_and_port">
+        <div class="pad15">
+            
+            <div class="portlist">
+                <div class="tagbox cur"><a href="javascript:void(0)" onclick="IndexPage.getMenu(0, 'js.json')">Javascript</a></div>
+                <div class="tagbox"><a href="javascript:void(0)" onclick="IndexPage.getMenu(1, 'html.json')">Html</a></div> 
+                <div class="tagbox"><a href="javascript:void(0)" onclick="IndexPage.getMenu(2, 'css.json')">CSS</a></div> 
+                <div class="tagbox"><a href="javascript:void(0)" onclick="IndexPage.getMenu(3, 'react.json')">React</a></div>  
+                <div class="tagbox"><a href="" onclick="IndexPage.getMenu(4, 'react.json')">React Native</a></div>
+                <div class="tagbox"><a href="" onclick="IndexPage.getMenu(5, 'react.json')">Vue</a></div>  
+                <div class="tagbox"><a href="" onclick="IndexPage.getMenu(6, 'react.json')">jQuery</a></div>  
+                <div class="tagbox"><a href="" onclick="IndexPage.getMenu(7, 'three.json')">Three.js</a></div> 
+                <div class="tagbox"><a href="javascript:void(0)" onclick="IndexPage.getMenu(8, 'node.json')">Node.js</a></div>
+                <div class="tagbox"><a href="">.Net core</a></div> 
+                <div class="tagbox"><a href="">Android</a></div> 
+                <div class="tagbox"><a href="">Linux</a></div>
+                <div class="tagbox"><a href="">算法</a></div>
+            </div>
+            <div class="daohang">
+                <i class="iconfont icon-home"></i>
+                <span>/</span>
+                <span class="hui">数组相关</span>
+                <span id="whichpage">循环遍历</span>
+            </div>
+        </div>
+    </div>
+    <iframe name="mainiframe" id="mainiframe" class="mainiframe" src="js_map.html" scrolling="auto" frameborder="no"></iframe>
+    <script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>

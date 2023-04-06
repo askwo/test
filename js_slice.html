@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>switch</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="switch">
+    <meta name="keywords" content="switch">
+	<meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-control" content="no-cache" />
+    <meta http-equiv="Cache" content="no-cache" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css">
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.nicescroll.js"></script>
+    <script type="text/javascript" src="js/tool.js"></script>
+</head>
+<body>
+    <div class="contentAuto">
+        <div class="midqu">
+            <h5>Slice使用</h5>
+            <div class="wzcontent">
+                
+            </div>
+            <pre id="codeshow">
+            
+            </pre>
+            
+        </div>
+    </div>
+    <script type="text/javascript" id="scriptBox">
+    
+    
+
+    async function sendMsg() {
+        var str = "abcdefghijklmnopqrstuvwxyz";
+        const SIZE = str.length;
+        const CHUNK_SIZE = 12;
+        var num = Math.ceil(SIZE / CHUNK_SIZE);
+
+        for (let i = 0; i < num; i++) {
+            let data = str.slice(i*CHUNK_SIZE, i*CHUNK_SIZE +CHUNK_SIZE);
+            console.log("第"+i+"片", data);
+            await $.ajax({
+                url: "http://localhost:5000/signtest/getmsg",
+                type: "POST",
+                data:"msg="+data,
+                //async:false,
+                success: function(response) {
+
+                }
+            });
+        }
+    }
+    //sendMsg();
+    //第0片 abcdefghijkl
+    //第1片 mnopqrstuvwx
+    //第2片 yz
+    function test() {
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                console.log("当前"+ i +"：", i);  
+            }, i * 2000);
+        }
+    }
+    test();
+    </script>
+    <script type="text/javascript">
+        document.getElementById("codeshow").innerHTML = $("#scriptBox").html();
+    </script>
+    <div class="foot"><script>cpright()</script></div>
+</body>
+</html>

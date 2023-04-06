@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>switch</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="switch">
+    <meta name="keywords" content="switch">
+	<meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-control" content="no-cache" />
+    <meta http-equiv="Cache" content="no-cache" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css">
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.nicescroll.js"></script>
+    <script type="text/javascript" src="js/tool.js"></script>
+    
+</head>
+<body>
+    <div class="contentAuto">
+        <div class="midqu">
+            <h5>加签、验签的作用</h5>
+            <div class="wzcontent">
+                
+常见的http请求交互过程中，请求参数通过url或者request body等形式传输。但是由于http请求的开放性，使得请求参数很容易被拦截篡改。因此，需要对请求参数进行加签，然后在请求接受方对请求参数进行验签，确保两个签名是一样的，验签通过之后请求处理方就可以进行业务逻辑处理了。
+
+但是，加签和验签只能解决请求传输过程中参数篡改的问题，并不能解决敏感参数传输的安全性问题。
+            </div>
+            <h5>加签、验签的处理思路</h5>
+            <div class="wzcontent">
+                加签和验签就是在请求发送方将请求参数通过加密算法生成一个sign值，放到请求参数里；请求接收方收到请求后，使用同样的方式对请求参数也进行加密得到一个sign值，只要两个sign值相同，就说明参数没有被篡改。
+            </div>
+            <h5>签名参数sign生成的方法</h5>
+            <div class="wzcontent">
+                1、将所以头参数(注意是所有参数)，出去sign本身，以及值是空的参数，按参数键字母升序排序。<br/>
+                2、然后把排序后的参数按参数1值1参数2值2......参数n值n(这里的参数和值必须是传输参数的原始值，不能是经过处理的，如不能将"转成"后再拼接)的方式拼接成一个字符串。<br/>
+                3、把分配给接入方的验证密钥key拼接在第2步得到的字符串前面。<br/>
+                4、在上一步得到的字符串前面加上密钥key(这里的密钥key是接口提供方分配给接口接入方的)，然后计算md5值，得到32位字符串，然后转成大写,得到的字符串作为sign的值放到请求参数里。
+            </div>
+            <h5>举例</h5>
+            <div class="wzcontent">
+                1、现在假设需要传输的数据是:http://xxx.com/api/guest/rechargeNotify?p2=v2&p1=v1&method=cancel&p3=&pn=vn(实际情况最好是通过post方式发送)
+
+                拼接字符串，首先去除值是空的参数p3，剩下p2=v2&p1=v1&method=cancel&pn=vn，然后按参数名字符升序排序得到字符串：method=cancel&p1=v1&p2=v2&pn=vn。<br/>
+                2、然后做参数名和值的拼接，最后得到methodcancelp1v1p2v2pnvn。<br/>
+                3、在上面拼接得到的字符串前面加上验证密钥key，假设是abc，得到新的字符串abcmethodcancelp1v1p2v2pnvn。<br/>
+                4、将上面得到的字符串进行md5计算，假设得到的是abcdef，然后转为大写，得到ABCDEF这个值即为sign签名值。最终产生的url应该如下：http://xxx.com/api/guest/rechargeNotify?p2=v2&p1=v1&method=cancel&p3=&pn=vn&sign=ABCDEF <br/>
+                5、注意：计算md5之前请确保请求发送方和接收方使用的字符串编码一致，比如统一使用utf-8编码，如果编码方式不一致则计算出来的签名会校验失败。
+            </div>
+            <h5>验签过程</h5>
+            <div class="wzcontent">
+                其实就是将请求url按照上述的规则进行同样的操作，计算得到参数的签名值，然后和参数中传递的sign值进行对比，如果一致则校验通过，否则校验不通过。
+            </div>
+            <h5>示例DEMO</h5>
+            <pre id="codeshow">
+
+            </pre>
+
+            
+            
+        </div>
+    </div>
+    <script type="text/javascript" id="scriptBox">
+        function createSign() {
+            var obj = {
+                "username":"zhagnsan",
+                "password":"admin123ASD<>?",
+                "others":"",
+                "tamp":parseInt(new Date().getTime() / 1000),
+                "remember":true,
+            }
+            //step1：拼接字符串，去掉空参数和sign本身，按照参数键升序排序
+            var arr = [];
+            for(let key in obj) {
+                if (obj[key]) {
+                    arr.push(key);
+                }
+            }
+            arr.sort();
+            
+            console.log(arr);
+            var ss = "";
+            for (let i = 0; i < arr.length; i++) {
+                ss += arr[i]+obj[arr[i]];
+            }
+            var key="nihao@!5207758_A";
+            //step2:在步骤1得到的字符串前面加密钥key得到新的字符串
+            ss = key+ss;
+            //step3:将步骤2得到的字符串进行md5加密，并转为大写，得到的字符串作为sign
+            var xiaoxieStr = hex_md5(ss);
+            var sign = xiaoxieStr.toUpperCase()
+            console.log(sign);
+            obj['sign'] = sign;
+            $.ajax({
+                url:"http://localhost:5000/signtest/dosign",
+                type:"post",
+                data:obj,
+                dataType:"json",
+                success:function(data) {
+                    console.log(data);
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        document.getElementById("codeshow").innerHTML = $("#scriptBox").html();
+    </script>
+    <div class="foot"><script>cpright()</script></div>
+</body>
+</html>

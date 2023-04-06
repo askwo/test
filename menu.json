@@ -1,0 +1,17 @@
+[
+    {
+        "level":1,"name":"系统管理","link":"system.htm",
+        "children":null
+    },
+    {
+        "level":1,"name":"光源","link":"",
+        "children":[
+            {
+                "level":2,"name":"点光源","link":"run_conf.htm",
+                "hasTab":"lang_view_runconf||run_conf.htm&lang_view_startconf||start_conf.htm&lang_view_confgl||config.htm"
+            }
+            
+        ]
+    }
+
+]
