@@ -1,3 +1,3 @@
 # web test
-some test DEMO
+some test DEMO everyday
 js,html,css etc.
